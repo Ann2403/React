@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>TEST</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <my-component v-bind:text='message'></my-component> 
+
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+
+        <my-component :num='myNumber' :str='passedString':even='myNumber' :obj='passedObject' inline-template>
+            <div>Number: {{num}}<br/>String: {{str}}<br/>IsEven: {{even}}<br/>Object:{{obj.message}}</div>
+        </my-component> -->
+
+        {{counter}}<br/>
+        <button v-on:click='incrementCounter'>Increment counter</button>
+        <!-- <my-component v-on:increment-me='incrementCounter'></my-component> -->
+        <my-component :my-counter.sync='counter'></my-component>
+    </div>
+    <script>
+    /* ГЛОБАЛЬНЫЙ КОМПОНЕНТ
+        Vue.component('my-component', {
+            template: '<div>Hello!</div>'
+        });
+
+        new Vue({
+            el: '#app'
+        });
+
+        ЛОКАЛЬНЫЙ КОМПОНЕНТ
+        const Component = {
+            template: '<div>Hello {{text}}! {{tester1}}</div>',
+            props: ['text'],
+            data() {
+                return {
+                    tester1: 'Testing Text'
+                }
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            components: { 'my-component': Component },
+            data() {
+                return {
+                    message: 'From Parent Component!'
+                }
+            }
+        });
+
+        'СЧЕТЧИК'
+        const MyComponent = {
+            template: '<div><button v-on:click="counter+=1">{{counter}}</button></div>',
+            data() {
+                return {
+                    counter: 0
+                }
+            }
+        }
+
+        new Vue({
+            el: "#app",
+            components: {'my-component':MyComponent},
+            data() {
+                return {
+                    message: ''
+                }
+            }
+        });
+        
+        ПРОВЕРКА ВХОДНЫХ ПАРАМЕТРОВ
+        const MyComponent = {
+            ******template: '<div>Number: {{num}}<br/>String: {{str}}<br/>IsEven: {{even}}<br/>Object:{{obj.message}}</div>',
+            inline-template  позволяет все это писать внутри родительского компонента******
+            props: {
+                num: {
+                    type: Number,
+                    required: true
+                },
+                str: {
+                    type: String,
+                    default: 'Hello World'
+                },
+                obj: {
+                    type: Object,
+                    default: ()=> {
+                        return {message: 'Hello from object'}
+                    }
+                },
+                even: {
+                    validator: (value) => {
+                        return (value%2 === 0)
+                    }
+                }
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            components: {'my-component':MyComponent},
+            data() {
+                return {
+                    passedObject: {message: 'Passed Object'},
+                    passedString: 'Hello from parent!',
+                    myNumber: 43
+                }
+            }
+        });*/
+        const myComponent = {
+            template: `<div>
+                <button v-on:click='childIncrementCounter'>Increment from child</button>
+                </div>`,
+            methods: {
+                childIncrementCounter() {
+                    /* this.$emit('increment-me'); */
+                    this.$emit('update:myCounter', this.myCounter+1);
+                }
+            },
+            props: ['my-counter']
+        }
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter() {
+                    this.counter++;
+                }
+            },
+            components: {'my-component':myComponent}
+        });
+
+    </script>
+</body>
+
+</html>
