@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue"></script>
+    <title>SLOT</title>
+</head>
+
+<body>
+    <!-- SLOT
+    <div id="app">
+        <form-component :author='authorLabel' :title='titleLabel'>
+            <h1>{{header}}</h1>
+            <label for='title' slot='titleSlot'> {{titleLabel}} </label>
+            <label for='author' slot='authorSlot'> {{authorLabel}} </label>
+        </form-component>
+    </div>
+
+    <script>
+        const formComponent = {
+            template: `
+            <div>
+                <form>
+                    <slot></slot>
+                    <slot name='titleSlot'></slot>
+                    <input id='title' type='text'><br/>
+                    <slot name='authorSlot'></slot>
+                    <input id='author' type='text'><br/>
+                    <button>Submit</button>
+                </form>
+            </div>
+            `
+        }
+
+        new Vue({
+            el: '#app',
+            components: {'form-component':formComponent},
+            data() {
+                return {
+                    titleLabel: 'The title:',
+                    authorLabel: 'The author:',
+                    header: 'Book author form'
+                }
+            }
+        });
+    </script> 
+    SLOT-SCOPE
+    -->
+    <div id="app">
+        <book-component :books='books'>
+            <h1 slot='header'>{{header}}</h1>
+            <template slot='book' slot-scope='props'>
+                <h2>
+                    <i>{{props.text.title}}</i>
+                    <small>by: {{props.text.author}}</small>
+                </h2>
+            </template>
+        </book-component>
+    </div>
+
+    <script>
+        const bookComponent = {
+            template: `
+            <div>
+                <slot name='header'></slot>
+                <slot name='book' v-for='book in books' :text='book'></slot>
+            </div>
+            `,
+            props: ['books']
+        }
+
+        new Vue({
+            el: '#app',
+            components: {'book-component': bookComponent},
+            data() {
+                return {
+                    header: 'Book list',
+                    books: [
+                        {author: 'John Smith', title: 'Best Of Times'},
+                        {author: 'Jane Doe', title: 'Go West Young Man'},
+                        {author: 'Avery Katz', title: 'The Life And Times Of Avery'}
+                    ]
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
