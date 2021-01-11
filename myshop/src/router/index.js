@@ -15,12 +15,6 @@ const routes = [
     props: true
   },
   {
-    path: '/form',
-    name: 'Form',
-    component: Form,
-    props: true
-  },
-  {
     path: '/product/:id',
     name: 'Id',
     component: Product,
@@ -33,6 +27,12 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: Form,
+    props: true
   },
   {
     path: '*',
