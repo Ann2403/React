@@ -23,17 +23,19 @@
                             <button type="button" class="btn btn-warning" disabled v-else>
                                 Add
                             </button>
-                            <span class="ml-3 font-weight-bold"
-                                v-if='product.availableInventory - cartCount(product.id) === 0'>
+                            <transition name='bounce' mode='out-in'>
+                                <span class="ml-3 font-weight-bold"
+                                v-if='product.availableInventory - cartCount(product.id) === 0' key='0'>
                                 All Out!
-                            </span>
-                            <span class="ml-3 font-weight-bold"
-                                v-else-if='product.availableInventory - cartCount(product.id) < 3'>
-                                Only {{product.availableInventory - cartCount(product.id)}} left!
-                            </span>
-                            <span class="ml-3 font-weight-bold" v-else>
-                                Buy Now!
-                            </span>
+                                </span>
+                                <span class="ml-3 font-weight-bold"
+                                    v-else-if='product.availableInventory - cartCount(product.id) < 3' key=''>
+                                    Only {{product.availableInventory - cartCount(product.id)}} left!
+                                </span>
+                                <span class="ml-3 font-weight-bold" v-else>
+                                    Buy Now!
+                                </span>
+                            </transition>
                             <div class="rating">
                                 <span v-bind:class="{'rating-active' : checkRating(n, product)}"
                                     v-for="n in 5">☆</span>
@@ -124,3 +126,31 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .bounce-enter-active {
+        animation: shake 0.72s cubic-bezier(.37, .07, .19, .97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+            color: red;
+            transform: translate3d(-1px, 0, 0);
+        }
+
+        20%, 80% {
+            transform: translate3d(2px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+            color: red;
+            transform: translate3d(-4px, 0, 0);
+        }
+
+        40%, 60% {
+            transform: translate3d(4px, 0, 0);
+        }
+    }
+</style>
