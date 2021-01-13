@@ -25,6 +25,21 @@
                 increment(state, payload) {
                     state.count += payload;
                 }
+            },
+            getters: {
+                msg(state) {
+                    return state.msg.toUpperCase();
+                },
+                count(state) {
+                    return state.count;
+                }
+            },
+            actions: {
+                increment(context, payload) {
+                    setTimeout(() => {
+                        context.commit('increment', payload);
+                    }, 2000);
+                }
             }
         });
 
@@ -37,15 +52,15 @@
             },
             computed: {
                 welcome() {
-                    return store.state.msg;
+                    return store.getters.msg;
                 },
                 counter() {
-                    return store.state.count;
+                    return store.getters.count;
                 }
             },
             methods: {
                 increment() {
-                    store.commit('increment', 10);
+                    store.dispatch('increment', 10);
                 }
             },
         });
