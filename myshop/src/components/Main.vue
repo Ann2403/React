@@ -51,11 +51,11 @@
 
 <script>
 import myHeader from './Header.vue';
+import { mapGetters } from 'vuex';
 export default {
     name: 'iMain',
     data() {
         return {
-            products: {},
             cart: []
         };
     },
@@ -104,6 +104,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters([
+            'products'
+        ]),
         cartItemCount: function () {
             return this.cart.length || '';
         },
@@ -120,9 +123,7 @@ export default {
         }
     },
     created: function() {
-        axios.get('/static/products.json').then(response => {
-            this.products = response.data.products;
-        });
+        this.$store.dispatch('initStore');
     }
 }
 </script>
