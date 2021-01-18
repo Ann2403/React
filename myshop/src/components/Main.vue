@@ -52,8 +52,12 @@
 <script>
 import myHeader from './Header.vue';
 import { mapGetters } from 'vuex';
+import { productsRef } from '../firebase.js';
 export default {
     name: 'iMain',
+    firebase: {
+        products: productsRef
+    },
     data() {
         return {
             cart: []
@@ -105,7 +109,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'products'
+            'session'
         ]),
         cartItemCount: function () {
             return this.cart.length || '';
