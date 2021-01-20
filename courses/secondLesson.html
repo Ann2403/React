@@ -1,48 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="app container">
-        <div class="row">
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" class="form-control" v-model='firstName'>
-            </div>
-            {{firstName}}
-        </div>
-      </div>
 
-      <script>
-          new Vue({
-              el: '.app',
-              data: {
-                firstName: ''
-              },
-              beforeCreate() {
-                console.log('beforeCreate');
-              },
-              created() {
-                console.log('created');
-              },
-              beforeMount() {
-                console.log('beforeMount');
-              },
-              mounted() {
-                console.log('mounted');
-              },
-              beforeUpdate() {
-                console.log('beforeUpdate');
-              },
-              updated() {
-                console.log('updated');
-              },
-          });
-      </script>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+	<title>Document</title>
+	<style>
+		.my-info {
+			font-style: italic;
+			color: rebeccapurple;
+		}
+
+		.my-warning {
+			font-size: 20px;
+			color: blue;
+		}
+
+		.table-some {
+			color:blue;
+			background: rosybrown;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="app container">
+		<div class="form-group">
+			<label>First Name</label>
+			<!--lazy двухнаправленость при изменении фокуса;
+            trim убирает лишние пробелы-->
+			<input type="text" class="form-control" v-model.trim.lazy='firstName' @keyup.enter='show = true'>
+		</div>
+		<div v-show='show'>
+			{{firstName}}
+		</div>
+		<!-- 
+			Атрибут class может принимать:
+			:class='string'
+			:class='array'
+			:class='obj'
+			:class='['string', obj]'
+		-->
+		<div class='alert' :class="divClassName">
+			Some text
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" value="info" v-model='divClass'>
+			<label class="form-check-label">
+				Info
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" value="warning" v-model='divClass'>
+			<label class="form-check-label">
+				Warning
+			</label>
+		</div>
+		<hr><br>
+		<div class="form-check" v-for="(value, name) in flags">
+			<label class="form-check-label">
+				<input class="form-check-input" type="checkbox" v-model='flags[name]'>
+				{{name}}
+			</label>
+		</div>
+		<table class="table" :class='flags'>
+			<tr>
+				<td>Title</td>
+				<td>Some</td>
+				<td>nz</td>
+			</tr>
+			<tr>
+				<td>Title</td>
+				<td>Some</td>
+				<td>nz</td>
+			</tr>
+			<tr>
+				<td>Title</td>
+				<td>Some</td>
+				<td>nz</td>
+			</tr>
+		</table>
+	</div>
+
+	<script>
+		new Vue({
+			el: '.app',
+			data: {
+				firstName: '',
+				show: false,
+				divClass: '',
+				flags: {
+					'table-bordered': false,
+					'table-hover': false,
+					'table-some': false
+				}
+			},
+			computed: {
+				divClassName() {
+					return [
+						'alert-' + this.divClass,
+						'my-' + this.divClass
+					];
+				}
+			},
+			beforeCreate() {
+				console.log('beforeCreate');
+			},
+			created() {
+				console.log('created');
+			},
+			beforeMount() {
+				console.log('beforeMount');
+			},
+			mounted() {
+				console.log('mounted');
+			},
+			beforeUpdate() {
+				console.log('beforeUpdate');
+			},
+			updated() {
+				console.log('updated');
+			},
+		});
+	</script>
 </body>
+
 </html>
