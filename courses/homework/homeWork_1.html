@@ -40,12 +40,8 @@
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th>FirstName</th>
-                <td> {{firstName}} </td>
-              </tr>
-              <tr>
-                <th>LastName</th>
-                <td> {{lastName}} </td>
+                <th>Name</th>
+                <td> {{Name}} </td>
               </tr>
               <tr>
                 <th>Email</th>
@@ -88,6 +84,11 @@
            this.guests.splice(n, 1);
           }
         },
+        computed: {
+          Name() {
+            return this.firstName + ' ' + this.lastName;
+          }
+        }
       });
     </script>
     
