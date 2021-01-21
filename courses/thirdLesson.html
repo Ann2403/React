@@ -21,7 +21,6 @@
     </div>
     
     <script>
-
         Vue.directive('ondelay', {
             bind(el, options) {
                 let timer;
@@ -42,13 +41,14 @@
                     }
                      
                     timer = setTimeout(() => {
-                         options.value.call(this, e);
+                        options.value.call(this, e);
                     }, timeout);
                    
                 };
                 el.addEventListener(options.arg, callback);
             }
         });
+
         new Vue({
             el: '.sample',
             data: {
