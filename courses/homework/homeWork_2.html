@@ -96,13 +96,12 @@
                         obj.classValid = '';
                     }
                 },
-                progressBar(obj) {
-                    
-                    if (obj.classValid == 'bi bi-exclamation-circle-fill' && obj.progressBarInput == 25) {
+                progressBar(obj) {   
+                    if (obj.classValid == 'bi bi-exclamation-circle-fill' && obj.progressBarInput == (100/countInput)) {
                         this.progress = this.progress - obj.progressBarInput;
                         obj.progressBarInput = 0;
                     } else if (obj.classValid == 'bi bi-check-circle-fill' && obj.progressBarInput == 0) {
-                        obj.progressBarInput = 25;
+                        obj.progressBarInput = (100/countInput);
                         this.progress = this.progress + obj.progressBarInput;  
                     }
                     this.progress == 100 ? this.disabledBtn = false : '';
