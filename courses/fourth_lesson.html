@@ -18,7 +18,10 @@
             <app-ul :items='list' v-if='ul'></app-ul>
             <app-ol :items='list' v-else></app-ol>
             <hr>
-            <component :is='listType' :items='list'></component>
+            <keep-alive>
+                <!--Хранящиеся элементы в этом теге хранятся в памяти и не пересоздаются-->
+                <component :is='listType' :items='list'></component>
+            </keep-alive>
         </div>
     </body>
     <script>
