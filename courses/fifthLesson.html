@@ -11,16 +11,24 @@
     <div class="container">
         <div class="sample mt-5">
             <button class="btn btn-dark" @click='show = !show'>Toggle</button>
-            <div class="alert alert-dark mt-2" v-show='show'>Some text</div>
+            <div class="alert alert-dark mt-2" v-show='show'>
+                {{text}} <hr>
+                {{text | length}} <hr>
+                {{text | revers | upper}} <hr>
+                {{ textLength }}
+            </div>
         </div>
+        <!--
         <div class="sample2 mt-5">
             <button class="btn btn-dark" @click='show = !show'>Toggle</button>
             <div class="alert alert-dark mt-2" v-show='show'>Some text</div>
-        </div>
+        </div> 
+        -->
     </div>
 
     <script>
 
+        /*
         let mixinUpdatesLoger = {
             data: {
                 updates: 0
@@ -30,15 +38,7 @@
                 console.log(this.updates);
             }
         }
-
-        new Vue({
-            el: '.sample',
-            data: {
-                show: true
-            },
-            mixins: [mixinUpdatesLoger]
-        });
-
+        
         new Vue({
             el: '.sample2',
             data: {
@@ -46,6 +46,36 @@
             },
             mixins: [mixinUpdatesLoger]
         });
+        */
+
+        new Vue({
+            el: '.sample',
+            data: {
+                show: true,
+                text: 'Some text'
+            },
+            computed: {
+                textLength() {
+                    console.log(2);
+                    return this.text.length;
+                }
+            },
+            //фильтры вызываются каждый раз при ререндеренге объекта, поэтому лучше пользоваться computed
+            filters: {
+                length(some) {
+                    console.log(1);
+                    return some.length;
+                }, 
+                revers(str) {
+                    return str.split('').reverse().join('');
+                },
+                upper(str) {
+                    return str.toUpperCase();
+                }
+            }
+            //mixins: [mixinUpdatesLoger]
+        });
+
     </script>
     
 </body>
