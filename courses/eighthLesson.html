@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise</title>
+</head>
+<body>
+    <script>
+        userReg().then((res) => {
+            console.log(res);
+            return userAut();
+        }).then((res) => {
+            console.log(res);
+            return userGetData();
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        });
+
+        function userReg() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function() {
+                    if(Math.random() > 0.2) {
+                        resolve('+ registration');
+                    } else {
+                        reject('- registration');
+                    }
+                }, 500);
+            });
+        }
+
+        function userAut() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function() {
+                    if(Math.random() > 0.2) {
+                        resolve('+ authorisation');
+                    } else {
+                        reject('- authorisation');
+                    }
+                }, 500);
+            });
+        }
+
+        function userGetData() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function() {
+                    if(Math.random() > 0.2) {
+                        resolve('+ name user');
+                    } else {
+                        reject('- user not defined');
+                    }
+                }, 500);
+            });
+        }
+    </script>
+</body>
+</html>
