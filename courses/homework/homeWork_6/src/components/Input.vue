@@ -1,7 +1,7 @@
 <template>
     <div class="mt-3">
         <label>
-            {{info[this.index].name}}
+            {{info[index].name}}
             <i v-if='activated' :class="validClass"></i>
         </label>  
         <input type="text" class="form-control" v-on:input='change'>
